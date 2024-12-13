@@ -66,3 +66,4 @@
 /home/js/RiderProjects/ivbgr1colornote/ivbgr1colornote/obj/Debug/net8.0/ivbgr1colornote.csproj.CopyComplete
 /home/js/RiderProjects/ivbgr1colornote/ivbgr1colornote/obj/Debug/net8.0/ivbgr1colornote.genruntimeconfig.cache
 /home/js/RiderProjects/ivbgr1colornote/ivbgr1colornote/obj/Debug/net8.0/ref/ivbgr1colornote.dll
+/home/js/RiderProjects/ivbgr1colornote/ivbgr1colornote/obj/Debug/net8.0/ivbgr1colornote.sourcelink.json

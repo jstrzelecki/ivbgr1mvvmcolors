@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Tmds.DBus.Protocol;
 
 namespace ivbgr1colornote.ViewModels;
 
@@ -11,7 +12,7 @@ public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty] private string _newMessage;
     [ObservableProperty] private IBrush _selectedColor = Brushes.Black;
-
+    public ObservableCollection<MessageViewModel> Messages { get; set; } = [];
     public ObservableCollection<IBrush> Colors { get; } =
     [
         Brushes.Black,
@@ -20,19 +21,30 @@ public partial class MainWindowViewModel : ViewModelBase
         Brushes.Yellow
     ];
   
-    public ICommand AddColorCommand { get; }
+    public ICommand AddMessageCommand { get; }
 
     public MainWindowViewModel()
     {
-        AddColorCommand = new RelayCommand(AddMessage);
+        AddMessageCommand = new RelayCommand(AddMessage, CanAddMessages);
     }
 
     private void AddMessage()
     {
         var message = new MessageViewModel
         {
-            
-        }
+            Content = NewMessage,
+            Color = SelectedColor,
+            Info = $"Liczba znaków: {NewMessage.Length}, Liczba słów: {NewMessage.Split(' ').Length}"
+        };
+        Messages.Add(message);
+        NewMessage = string.Empty;
     }
 
+    private bool CanAddMessages() => !string.IsNullOrWhiteSpace(NewMessage);
+
+    partial void OnNewMessageChanged(string v)
+    {
+       ((RelayCommand)AddMessageCommand).NotifyCanExecuteChanged(); 
+    }
+    
 }
